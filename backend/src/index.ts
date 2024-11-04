@@ -21,7 +21,9 @@ app.get('/api/bucketlists', async (req: Request, res: Response) => {
   res.json(bucketLists);
 });
 
-// Other CRUD operations...
+app.get('/', (req: Request, res: Response) => {
+  res.send('Welcome to the Bucket List API!');
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
