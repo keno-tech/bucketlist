@@ -1,0 +1,40 @@
+
+.bucketlists-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .bucketlists-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .bucketlist-item {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .bucketlist-item h3 {
+    margin: 0;
+  }
+  
+  .bucketlist-item p {
+    margin: 10px 0;
+  }
+  
+  .bucketlist-item img {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+  }
+  
+  hr {
+    margin-top: 15px;
+  }
+  
