@@ -1,24 +1,42 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './MainPage.css'; // Ensure you're importing the CSS
 
 function MainPage() {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem('user'));
 
-  const handleRecentBucketListsClick = () => {
-    navigate('/view-bucketlists');
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/');
   };
 
-  const handleCreateBucketListClick = () => {
-    navigate('/create-bucketlist');
-  };
+  if (!user) {
+    navigate('/');
+    return null;
+  }
 
   return (
-    <div className="container">
-      <h1>Welcome to the Bucket List</h1>
-      <div className="button-container">
-        <button onClick={handleRecentBucketListsClick}>View Bucket Lists</button>
-        <button onClick={handleCreateBucketListClick}>Create Your Own Bucket List</button>
+    <div>
+      <h1>Welcome, {user.name}!</h1>
+      <img
+        src={user.picture}
+        alt="Profile"
+        style={{
+          borderRadius: '50%',
+          width: '96px',
+          height: '96px',
+          objectFit: 'cover',
+          marginTop: '10px',
+        }}
+      />
+      <div style={{ marginTop: '20px' }}>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
+      <div style={{ marginTop: '30px' }}>
+        <button onClick={() => navigate('/view-bucketlists')}>View Bucket Lists</button>
+        <button onClick={() => navigate('/create-bucketlist')} style={{ marginLeft: '10px' }}>
+          Create Bucket List
+        </button>
       </div>
     </div>
   );

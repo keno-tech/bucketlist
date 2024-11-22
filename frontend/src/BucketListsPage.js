@@ -47,8 +47,28 @@ function BucketListsPage() {
             <div key={bucketList.id} className="bucketlist-item">
               <h3>{bucketList.title}</h3>
               <p>{bucketList.description}</p>
-              {bucketList.imageUrl && <img src={bucketList.imageUrl} alt={bucketList.title} />}
-              <p>{bucketList.achieved ? 'Achieved' : 'Not Achieved'}</p>
+              <h4>Dreams:</h4>
+              {bucketList.dreams && bucketList.dreams.length > 0 ? (
+                <ul>
+                  {bucketList.dreams.map((dream) => (
+                    <li key={dream.id}>
+                      <strong>{dream.title}</strong>
+                      <p>{dream.description}</p>
+                      <p>{dream.achieved ? 'Achieved' : 'Not Achieved'}</p>
+                      <p>Likes: {dream.likes}</p>
+                      {dream.images && dream.images.length > 0 && (
+                        <div>
+                          {dream.images.map((image, idx) => (
+                            <img key={idx} src={image} alt={dream.title} />
+                          ))}
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No dreams in this bucket list.</p>
+              )}
               <hr />
             </div>
           ))

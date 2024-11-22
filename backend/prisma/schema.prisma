@@ -8,10 +8,42 @@ datasource db {
 }
 
 model BucketList {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   title       String
   description String?
-  imageUrl    String?
-  achieved    Boolean  @default(false)
-  createdAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
+  userId      Int       // Foreign key to associate with a user
+  user        User      @relation(fields: [userId], references: [id]) // Relation to User
+  dreams      Dream[]   // One-to-many relationship with Dream
+}
+
+model User {
+  id          Int          @id @default(autoincrement())
+  email       String       @unique
+  name        String?
+  createdAt   DateTime     @default(now())
+  bucketLists BucketList[] // One-to-many relationship with BucketList
+}
+
+model Dream {
+  id            Int       @id @default(autoincrement())
+  title         String
+  description   String?
+  images        String[]  // Array of image URLs
+  comments      Comment[] // One-to-many relationship with Comment
+  achieved      Boolean   @default(false)
+  likes         Int       @default(0) // Count of likes
+  createdAt     DateTime  @default(now())
+  achievedAt    DateTime? // Nullable: only set when achieved
+  bucketListId  Int       // Foreign key to associate with a BucketList
+  bucketList    BucketList @relation(fields: [bucketListId], references: [id])
+}
+
+model Comment {
+  id         Int       @id @default(autoincrement())
+  text       String
+  userId     Int       // Foreign key to associate with a user
+  dreamId    Int       // Foreign key to associate with a Dream
+  createdAt  DateTime  @default(now())
+  dream      Dream     @relation(fields: [dreamId], references: [id])
 }
